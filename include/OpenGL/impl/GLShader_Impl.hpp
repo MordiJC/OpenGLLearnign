@@ -3,7 +3,7 @@
 
 #include <GL/glew.h>
 
-#include <Core/Exception.hpp>
+#include <OpenGL/GLException.hpp>
 #include <OpenGL/GLShader.hpp>
 
 class GLShader::Impl {
@@ -15,11 +15,11 @@ public:
 
 	~Impl();
 
-	std::string getSource() const throw(Exception);
+	std::string getSource() const throw(GLException);
 
-	void compileShader(const std::string & source) throw(Exception);
+	void compileShader(const std::string & source) throw(GLException);
 
-	void compileShader(const char * source) throw(Exception);
+	void compileShader(const char * source) throw(GLException);
 
 	std::string log() const;
 

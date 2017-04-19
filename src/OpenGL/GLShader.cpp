@@ -1,37 +1,40 @@
 #include "OpenGL/GLShader.hpp"
 
-#include "OpenGL/GLShader_Impl.hpp"
+#include "OpenGL/impl/GLShader_Impl.hpp"
 
 GLShader::GLShader(GLShader::ShaderType type)
-	: pImpl(new GLShader::Impl(type), [](GLShader::Impl *impl) { delete impl; })
+	: impl_(spimpl::make_impl<GLShader::Impl>(type))
 {}
 
-std::string GLShader::getSource() const throw(Exception)
+GLShader::~GLShader()
+{}
+
+std::string GLShader::getSource() const throw(GLException)
 {
-	return pImpl->getSource();
+	return impl_->getSource();
 }
 
-void GLShader::compileShader(const std::string & source) throw(Exception)
+void GLShader::compileShader(const std::string & source) throw(GLException)
 {
-	return pImpl->compileShader(source);
+	return impl_->compileShader(source);
 }
 
-void GLShader::compileShader(const char * source) throw(Exception)
+void GLShader::compileShader(const char * source) throw(GLException)
 {
-	return pImpl->compileShader(source);
+	return impl_->compileShader(source);
 }
 
 std::string GLShader::log() const
 {
-	return pImpl->log();
+	return impl_->log();
 }
 
 GLuint GLShader::shaderId() const
 {
-	return pImpl->shaderId();
+	return impl_->shaderId();
 }
 
 GLShader::ShaderType GLShader::shaderType() const
 {
-	return pImpl->shaderType();
+	return impl_->shaderType();
 }

@@ -50,8 +50,15 @@ GLuint LoadShaders(const char * vertex_shader_path, const char * fragment_shader
 	GLShader vertexShader(GLShader::Vertex),
 			 fragmentShader(GLShader::Fragment);
 
-	vertexShader.compileShader(vertexShaderBuffer);
-	fragmentShader.compileShader(fragmentShaderBuffer);
+	try {
+
+		vertexShader.compileShader(vertexShaderBuffer);
+		fragmentShader.compileShader(fragmentShaderBuffer);
+	}
+	catch(GLException & e)
+	{
+		printf("Error while compiling shader\n%s\n", e.what());
+	}
 
 	printf("Linking shaders\n");
 	GLuint ProgramID = glCreateProgram();

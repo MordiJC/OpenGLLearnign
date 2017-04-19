@@ -1,4 +1,4 @@
-#include "OpenGL/GLShader_Impl.hpp"
+#include "OpenGL/impl/GLShader_Impl.hpp"
 
 #include <vector>
 
@@ -35,7 +35,7 @@ GLShader::Impl::~Impl()
 	}
 }
 
-std::string GLShader::Impl::getSource() const  throw(Exception)
+std::string GLShader::Impl::getSource() const  throw(GLException)
 {
 	if(glIsShader(shaderId()))
 	{
@@ -60,12 +60,12 @@ std::string GLShader::Impl::getSource() const  throw(Exception)
 	}
 }
 
-void GLShader::Impl::compileShader(const std::string & source)  throw(Exception)
+void GLShader::Impl::compileShader(const std::string & source)  throw(GLException)
 {
 	compileShader(source.c_str());
 }
 
-void GLShader::Impl::compileShader(const char * source)  throw(Exception)
+void GLShader::Impl::compileShader(const char * source)  throw(GLException)
 {
 	// Create shader program if does not exists.
 	if(!glIsShader(shaderId()))

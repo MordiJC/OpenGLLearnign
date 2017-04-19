@@ -3,32 +3,39 @@
 
 #include <string>
 
-#include <memory>
-
 #include <GL/glew.h>
 
-#include <Core/Exception.hpp>
+#include <OpenGL/GLException.hpp>
+#include <spimpl.h>
 
 /**
- * Class for OpenGL shaders.
+ * \class GLShader
+ *
+ * \brief Class for OpenGL shaders.
  */
 class GLShader
 {
+private:
+	class Impl;
+	spimpl::impl_ptr<GLShader::Impl> impl_;
+
 public:
+	/**
+	 * \brief Shader types
+	 */
 	enum ShaderType {
-		None,
-		Fragment,
-		Vertex,
-		Geometry,
-		Compute,
-		TessellationEvaluation,
-		TessellationControl,
+		Fragment,               ///< OpenGL fragment shader (GL_FRAGMENT_SHADER)
+		Vertex,                 ///< OpenGL vertex shader (GL_VERTEX_SHADER)
+		Geometry,               ///< OpenGL geometry shader (GL_GEOMETRY_SHADER)
+		Compute,                ///< OpenGL compute shader (GL_COMPUTE_SHADER)
+		TessellationEvaluation, ///< OpenGL tessellation evaluation shader (GL_TESS_EVALUATION_SHADER)
+		TessellationControl,    ///< OpenGL tessellation control shader (GL_TESS_CONTROL_SHADER)
 
 		ShadersNumber
 	};
 
 	/**
-	 * Constructs a new \class GLShader object ofthe specified type.
+	 * \brief Constructs a new \link GLShader object of the specified type.
 	 *
 	 * \param type Type of shader.
 	 */
@@ -45,57 +52,53 @@ public:
 
 	GLShader & operator=(GLShader &&) noexcept = default;
 
-	virtual ~GLShader() = default;
+	virtual ~GLShader();
 
 	/**
-	 * Get the source code of shader
+	 * \brief Get the source code of shader
 	 *
 	 * \return Shader source code
 	 */
-	std::string getSource() const throw(Exception);
+	std::string getSource() const throw(GLException);
 
 	/**
-	 * Compile given shader source code
+	 * \brief Compile given shader source code
 	 *
-	 *	\param source String containing source code of shader
+	 * \param source String containing source code of shader
 	 *
-	 *	\throws Exception
+	 * \throws Exception
 	 */
-	void compileShader(const std::string & source) throw(Exception);
+	void compileShader(const std::string & source) throw(GLException);
 
 	/**
-	 * Compile given shader source code
+	 * \brief Compile given shader source code
 	 *
-	 *	\param source String containing source code of shader
+	 * \param source String containing source code of shader
 	 *
-	 *	\throws Exception
+	 * \throws Exception
 	 */
-	void compileShader(const char * source) throw(Exception);
+	void compileShader(const char * source) throw(GLException);
 
 	/**
-	 * Get shader log.
+	 * \brief Get shader log.
 	 *
 	 * \return String with shader log
 	 */
 	std::string log() const;
 
 	/**
-	 * Get OpenGL-Environment shader id
+	 * \brief Get OpenGL-Environment shader id
 	 *
 	 * \return Shader id
 	 */
 	GLuint shaderId() const;
 
 	/**
-	 * Get shader type.
+	 * \brief Get shader type.
 	 *
 	 * \return Shader type
 	 */
 	GLShader::ShaderType shaderType() const;
-
-private:
-	class Impl;
-	std::unique_ptr<GLShader::Impl, void (*)(GLShader::Impl *)> pImpl;
 };
 
 #endif // GLSHADER_HPP
