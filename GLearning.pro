@@ -11,8 +11,16 @@ SOURCES += \
     src/OpenGL/GLShaderProgram.cpp \
 	#src/Core/Url.cpp \
 	#src/Core/impl/Url_Impl.cpp
+    src/Window/Window.cpp \
+    src/Window/VideoMode.cpp \
+    src/Window/impl/VideoMode_Impl.cpp
 
-LIBS += -lGL -lGLEW -lglfw -lnetwork-uri
+# Linking directories
+LIBS += -L/usr/local/lib/
+
+# Libs to link
+LIBS += -lGL -lGLEW -lnetwork-uri -lglfw
+
 INCLUDEPATH += include
 
 HEADERS += \
@@ -24,6 +32,10 @@ HEADERS += \
     include/OpenGL/GLShaderProgram.hpp \
 	#include/Core/Url.hpp \
 	#include/Core/impl/Url_Impl.hpp
+    include/Window/Window.hpp \
+    include/Window/WindowException.hpp \
+    include/Window/VideoMode.hpp \
+    include/Window/impl/VideoMode_Impl.hpp
 
 DISTFILES += \
     shaders/vertex.vsh \

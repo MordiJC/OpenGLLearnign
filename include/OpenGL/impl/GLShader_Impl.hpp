@@ -11,21 +11,21 @@ public:
 	GLShader::ShaderType shaderType_;
 	GLuint shaderId_;
 
-	explicit Impl(GLShader::ShaderType type);
+	explicit Impl(GLShader::ShaderType type) throw(GLException);
 
 	~Impl();
 
-	std::string getSource() const throw(GLException);
+	auto getSource() const throw(GLException) -> std::string;
 
-	void compileShader(const std::string & source) throw(GLException);
+	auto compileShader(const std::string & source) throw(GLException) -> void;
 
-	void compileShader(const char * source) throw(GLException);
+	auto compileShader(const char * source) throw(GLException) -> void;
 
-	std::string log() const;
+	auto log() const -> std::string;
 
-	GLuint shaderId() const;
+	auto shaderId() const -> GLuint;
 
-	GLShader::ShaderType shaderType() const;
+	auto shaderType() const -> GLShader::ShaderType;
 
 };
 

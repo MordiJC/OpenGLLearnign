@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <string>
 
-class Exception : std::runtime_error
+class Exception : public virtual std::runtime_error
 {
 private:
 	std::string message;
@@ -16,7 +16,7 @@ public:
 
 	virtual ~Exception();
 
-	const char *what() const noexcept;
+	auto what() const noexcept -> const char *;
 };
 
 #endif // EXCEPTION_HPP

@@ -16,7 +16,7 @@ GLenum shaderTypeToGLenum(GLShader::ShaderType type)
 	}
 }
 
-GLShader::Impl::Impl(GLShader::ShaderType type)
+GLShader::Impl::Impl(GLShader::ShaderType type) throw(GLException)
 	: shaderType_(type), shaderId_(0)
 {
 	// Sheck if shader type is valid
@@ -35,7 +35,7 @@ GLShader::Impl::~Impl()
 	}
 }
 
-std::string GLShader::Impl::getSource() const  throw(GLException)
+auto GLShader::Impl::getSource() const throw(GLException) -> std::string
 {
 	if(glIsShader(shaderId()))
 	{
@@ -60,12 +60,12 @@ std::string GLShader::Impl::getSource() const  throw(GLException)
 	}
 }
 
-void GLShader::Impl::compileShader(const std::string & source)  throw(GLException)
+auto GLShader::Impl::compileShader(const std::string & source)  throw(GLException) -> void
 {
 	compileShader(source.c_str());
 }
 
-void GLShader::Impl::compileShader(const char * source)  throw(GLException)
+auto GLShader::Impl::compileShader(const char * source)  throw(GLException) -> void
 {
 	// Create shader program if does not exists.
 	if(!glIsShader(shaderId()))
@@ -91,7 +91,7 @@ void GLShader::Impl::compileShader(const char * source)  throw(GLException)
 	}
 }
 
-std::string GLShader::Impl::log() const
+auto GLShader::Impl::log() const -> std::string
 {
 	std::string logContent;
 	if(glIsShader(shaderId()))
@@ -110,12 +110,12 @@ std::string GLShader::Impl::log() const
 	return logContent;
 }
 
-GLuint GLShader::Impl::shaderId() const
+auto GLShader::Impl::shaderId() const -> GLuint
 {
 	return shaderId_;
 }
 
-GLShader::ShaderType GLShader::Impl::shaderType() const
+auto GLShader::Impl::shaderType() const -> GLShader::ShaderType
 {
 	return shaderType_;
 }

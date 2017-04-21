@@ -39,7 +39,7 @@ public:
 	 *
 	 * \param type Type of shader.
 	 */
-	explicit GLShader(GLShader::ShaderType type);
+	explicit GLShader(GLShader::ShaderType type) throw(GLException);
 
 
 	// All five special member functions [Rule of Zer0]
@@ -48,9 +48,9 @@ public:
 
 	GLShader(GLShader &&) noexcept = default;
 
-	GLShader & operator=(const GLShader &) noexcept = default;
+	auto operator=(const GLShader &) noexcept -> GLShader & = default;
 
-	GLShader & operator=(GLShader &&) noexcept = default;
+	auto operator=(GLShader &&) noexcept -> GLShader & = default;
 
 	virtual ~GLShader();
 
@@ -59,7 +59,7 @@ public:
 	 *
 	 * \return Shader source code
 	 */
-	std::string getSource() const throw(GLException);
+	auto getSource() const throw(GLException) -> std::string;
 
 	/**
 	 * \brief Compile given shader source code
@@ -68,7 +68,7 @@ public:
 	 *
 	 * \throws Exception
 	 */
-	void compileShader(const std::string & source) throw(GLException);
+	auto compileShader(const std::string & source) throw(GLException) -> void;
 
 	/**
 	 * \brief Compile given shader source code
@@ -77,28 +77,28 @@ public:
 	 *
 	 * \throws Exception
 	 */
-	void compileShader(const char * source) throw(GLException);
+	auto compileShader(const char * source) throw(GLException) -> void;
 
 	/**
 	 * \brief Get shader log.
 	 *
 	 * \return String with shader log
 	 */
-	std::string log() const;
+	auto log() const -> std::string;
 
 	/**
 	 * \brief Get OpenGL-Environment shader id
 	 *
 	 * \return Shader id
 	 */
-	GLuint shaderId() const;
+	auto shaderId() const -> GLuint;
 
 	/**
 	 * \brief Get shader type.
 	 *
 	 * \return Shader type
 	 */
-	GLShader::ShaderType shaderType() const;
+	auto shaderType() const -> GLShader::ShaderType;
 };
 
 #endif // GLSHADER_HPP

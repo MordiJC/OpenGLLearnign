@@ -11,7 +11,7 @@ Exception::Exception(const char * arg)
 Exception::~Exception()
 {}
 
-const char *Exception::what() const noexcept
+auto Exception::what() const noexcept -> const char *
 {
 	return this->message.c_str();
 }
